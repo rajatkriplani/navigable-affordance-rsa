@@ -1,0 +1,1 @@
+"""Command-line entry points for the navigable-affordance RSA pipeline."""

@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Navigable Affordance RSA"
+abstract: >
+  RSA pipeline testing whether the human occipital place area (OPA)
+  encodes the topological structure of navigable space, above and beyond
+  the 2017 navigational-affordance model of Bonner & Epstein and low-level
+  visual cortex. Uses SAM-based floor segmentation to extract an
+  8-dimensional Gibsonian affordance vector from each scene photograph.
+authors:
+  - family-names: Kriplani
+    given-names: Rajat
+type: software
+license: MIT
+repository-code: "https://github.com/<your-username>/navigable-affordance-rsa"
+keywords:
+  - representational similarity analysis
+  - navigational affordance
+  - occipital place area
+  - scene perception
+  - segment anything
+references:
+  - type: article
+    title: "Coding of navigational affordances in the human visual system"
+    authors:
+      - family-names: Bonner
+        given-names: Michael F.
+      - family-names: Epstein
+        given-names: Russell A.
+    journal: "Proceedings of the National Academy of Sciences"
+    volume: 114
+    issue: 18
+    start: 4793
+    end: 4798
+    year: 2017

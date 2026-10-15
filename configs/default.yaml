@@ -1,0 +1,70 @@
+# Default configuration for the navigable-affordance RSA pipeline.
+#
+# Paths are resolved relative to the repository root (parent of this file).
+# See docs/pipeline.md for parameter provenance and sensitivity notes.
+
+paths:
+  stimuli_dir:       data/stimuli
+  affordances_dir:   data/affordances      # NEW — Bonner norming data
+  brain_rdms_dir:    data/rdms
+  mask_cache_dir:    outputs/masks
+  features_csv:      outputs/features/extracted_features.csv
+  sam_rdm:           outputs/rdms/sam_topological_rdm.npy
+  stats_dir:         outputs/stats
+  figures_dir:       outputs/figures
+
+sam:
+  checkpoint: /replace/with/path/to/sam_vit_h_4b8939.pth
+  model_type: vit_h            # vit_h | vit_l | vit_b
+  device:     auto             # auto | cuda | mps | cpu
+  primary_prompt: [0.50, 0.90]
+  fallback_prompts:
+    - [0.50, 0.85]
+    - [0.50, 0.95]
+    - [0.33, 0.90]
+    - [0.67, 0.90]
+    - [0.33, 0.80]
+    - [0.67, 0.80]
+  min_floor_fraction: 0.02
+
+features:
+  # Body clearance radius at the bottom of the image, in PIXELS (not cm).
+  # This parameter does not exist in Bonner & Epstein (2017), whose model is
+  # angular and direction-only. It is required because our clearance features
+  # operationalise the metric width/depth of navigable space, a dimension
+  # their L/C/R model omits.
+  # Calibrated to the Bonner & Epstein stimulus resolution (768x1024).
+  # Sensitivity is reported in docs/pipeline.md §4.1.
+  r_base_px: 60.0
+
+  # Fraction of image height at which the visual horizon sits.
+  # 0.5 is derived from stated facts: Bonner & Epstein (2017) photographed
+  # their Exp. 2 stimuli at eye level, and pinhole projection for a level
+  # camera places the visual horizon at the image midline.
+  # Validated against trajectory convergence (docs/pipeline.md §4.2).
+  horizon_ratio: 0.5
+
+  names:       [BPD, SC, GTI, NNE, PFF, MAC, BCR, SCE]
+  topological: [GTI, BPD, NNE, SC]
+  clearance:   [MAC, PFF, BCR, SCE]
+  # Invariance classes (mathematical). See docs/features.md.
+  topological_invariant: [SC]
+  geometric:             [BPD, GTI, NNE]
+  metric:                [PFF, MAC, BCR, SCE]
+
+  # Per-image seed derivation. Options:
+  #   "hash"  : SHA-256 hash of image filename stem, truncated. Stable
+  #             across runs and machines; different seeds per image.
+  #   "index" : ordinal position in sorted mask list. Stable across runs
+  #             on the same mask set; shifts if masks are added/removed.
+  #   <int>   : fixed integer seed, identical for all images (highest
+  #             variance across datasets, but simplest).
+  # Currently hardcoded to "hash" in src/cli/extract_features.py.
+  per_image_seed_policy: hash
+
+stats:
+  n_stimuli:              50
+  n_permutations:         10000
+  n_permutations_quick:   2000
+  fdr_method:             fdr_bh
+  master_seed:            42

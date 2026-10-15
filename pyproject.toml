@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "navigable-affordance-rsa"
+version = "0.1.0"
+description = "RSA pipeline for testing whether OPA encodes topological affordances"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "scikit-image>=0.21",
+    "networkx>=3.0",
+    "statsmodels>=0.14",
+    "matplotlib>=3.7",
+    "h5py>=3.9",
+    "pyyaml>=6.0",
+    "tqdm>=4.65",
+    "opencv-python>=4.8",
+]
+
+[project.optional-dependencies]
+# Install with: pip install -e ".[sam]"
+# Then install SAM separately:
+#   pip install git+https://github.com/facebookresearch/segment-anything.git
+sam = [
+    "torch>=2.0",
+]
+dev = [
+    "pytest>=7.4",
+]
+
+[project.scripts]
+affordance-build-masks      = "src.cli.build_masks:main"
+affordance-extract-features = "src.cli.extract_features:main"
+affordance-build-rdm        = "src.cli.build_rdm:main"
+affordance-rsa              = "src.cli.rsa:main"
+affordance-ablation         = "src.cli.ablation:main"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "slow: tests that take more than a few seconds (deselect with '-m \"not slow\"')",
+]

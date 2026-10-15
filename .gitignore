@@ -1,0 +1,38 @@
+# ── Python ─────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ── Virtual envs ───────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── Data (never commit) ────────────────────────────────────────────────────
+# The Bonner dataset is shared by direct correspondence with the author.
+# The Net2Brain stimuli are downloaded from the Net2Brain repository.
+data/
+!data/.gitkeep
+!data/affordances/
+!data/affordances/allpaths_mapping.csv
+
+# ── SAM weights (2.4 GB, downloaded separately) ────────────────────────────
+checkpoints/
+*.pth
+
+# ── Pipeline outputs (regenerable) ─────────────────────────────────────────
+outputs/
+!outputs/.gitkeep
+
+# ── OS junk ────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Editors ────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+
+navigable_affordance_rsa.egg-info/
