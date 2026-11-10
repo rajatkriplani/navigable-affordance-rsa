@@ -42,6 +42,7 @@ affordance-extract-features = "src.cli.extract_features:main"
 affordance-build-rdm        = "src.cli.build_rdm:main"
 affordance-rsa              = "src.cli.rsa:main"
 affordance-ablation         = "src.cli.ablation:main"
+affordance-visualize-features = "src.cli.visualize_features:main"
 
 [tool.setuptools.packages.find]
 include = ["src*"]

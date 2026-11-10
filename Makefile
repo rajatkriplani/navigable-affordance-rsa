@@ -20,7 +20,7 @@ DEVICE  ?= auto
 SAM_MODEL ?= vit_b
 CHECKPOINT ?= checkpoints/sam_vit_b_01ec64.pth
 
-.PHONY: install data masks features rdm rsa ablation all analysis test smoke clean clean-all
+.PHONY: install data masks features rdm rsa ablation sensitivity figures all analysis test smoke clean clean-all
 
 install:
 	pip install -e ".[sam,dev]"
@@ -38,6 +38,9 @@ masks:
 features:
 	affordance-extract-features --config $(CONFIG)
 
+figures:
+	affordance-visualize-features --config $(CONFIG)
+
 rdm:
 	affordance-build-rdm --config $(CONFIG)
 
@@ -47,7 +50,7 @@ rsa:
 ablation:
 	affordance-ablation --config $(CONFIG)
 
-all: masks features rdm rsa ablation
+all: masks features rdm rsa ablation sensitivity figures
 
 analysis: features rdm rsa ablation
 
